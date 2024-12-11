@@ -1,39 +1,58 @@
 import 'Owner.dart';
 
 class Dog {
-  final int id;
-  final String name;
-  final double age;
-  final String gender;
-  final String color;
-  final double weight;
-  final String location;
-  final String image;
-  final String about;
-  final Owner owner;
-  Dog(
-    this.id,
-    this.name,
-    this.age,
-    this.gender,
-    this.color,
-    this.weight,
-    this.location,
-    this.image,
-    this.about,
-    this.owner, 
-  );
-  // factory Dog.fromJson(Map<String, dynamic> json) {
-  //   return Dog(
-  //     id: json['_id'],
-  //     name: json['name'],
-  //     age: json['age'],
-  //     gender: json['gender'],
-  //     color: json['color'],
-  //     weight: json['weight'],
-  //     location: json['location'],
-  //     image: json['image'],
-  //     about: json['about'],
-  //   );
-  // }
+  int id; // L'ID doit être inclus et initialisé dans fromJson
+  String name;
+  double age;
+  String gender;
+  String color;
+  double weight;
+  String location;
+  String image;
+  String about;
+  Owner owner;
+
+  Dog({
+    required this.id,
+    required this.name,
+    required this.age,
+    required this.gender,
+    required this.color,
+    required this.weight,
+    required this.location,
+    required this.image,
+    required this.about,
+    required this.owner,
+  });
+
+  factory Dog.fromJson(Map<String, dynamic> json) {
+    return Dog(
+      id: json['id'] as int, 
+      name: json['name'] as String,
+      age: (json['age'] as num).toDouble(), 
+      gender: json['gender'] as String,
+      color: json['color'] as String,
+      weight: (json['weight'] as num).toDouble(),
+      location: json['location'] as String,
+      image: json['image'] as String,
+      about: json['about'] as String,
+      owner: Owner.fromJson(json['owner']),
+    );
+  }
+
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'age': age,
+      'gender': gender,
+      'color': color,
+      'weight': weight,
+      'location': location,
+      'image': image,
+      'about': about,
+      'owner': owner.toJson(), // Convertir Owner en JSON
+    };
+  }
 }
